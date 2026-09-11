@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Harvor H Icon</title>
+  <desc id="desc">Solid blue square with a transparent H cutout.</desc>
+
+  <path
+    fill-rule="evenodd"
+    fill="var(--harvor-icon-color, #3566F5)"
+    d="M0 0 H512 V512 H0 Z
+       M156 116 a27 27 0 0 1 27 27 v226 a27 27 0 0 1 -27 27 a27 27 0 0 1 -27 -27 v-226 a27 27 0 0 1 27 -27 z
+       M356 116 a27 27 0 0 1 27 27 v226 a27 27 0 0 1 -27 27 a27 27 0 0 1 -27 -27 v-226 a27 27 0 0 1 27 -27 z
+       M183 240 C220 260 263 264 329 226 L329 280 C277 312 221 308 183 288 Z"
+  />
+</svg>

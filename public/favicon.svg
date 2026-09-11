@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Harvor favicon</title>
+  <desc id="desc">Blue rounded square with a white H mark.</desc>
+  <rect x="40" y="40" width="432" height="432" rx="92" fill="#3566F5"/>
+
+  <rect x="129" y="116" width="54" height="280" rx="27" fill="#FFFFFF"/>
+  <rect x="329" y="116" width="54" height="280" rx="27" fill="#FFFFFF"/>
+  <path
+    fill="#FFFFFF"
+    d="M183 240
+       C220 260 263 264 329 226
+       L329 280
+       C277 312 221 308 183 288
+       Z"
+  />
+</svg>

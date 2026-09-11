@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap");
+
+/* Component colors come from the MUI theme (src/theme.ts) via
+   ThemeProvider/CssBaseline, driven by the mode in ColorModeProvider — not
+   from prefers-color-scheme, since the mode can also be toggled manually.
+   These two tokens exist only for raw (non-MUI) markup, e.g. links in
+   Markdown-rendered docs content, and track the same mode via the
+   data-color-scheme attribute ColorModeProvider sets on <html>. */
+:root {
+  color-scheme: light;
+  --link: #3566f5;
+  --focus-ring: #3566f5;
+}
+
+:root[data-color-scheme="dark"] {
+  color-scheme: dark;
+  --link: #6e95ff;
+  --focus-ring: #6e95ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+a {
+  color: var(--link);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
