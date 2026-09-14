@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import StabilityBadge from "../components/StabilityBadge";
+import { serviceStandardExpectedThrough } from "../data/serviceStandard";
 import type { StabilityLabel } from "../data/stabilityLabels";
 import { stabilityLabels } from "../data/stabilityLabels";
 
@@ -83,6 +84,60 @@ function StabilityLabelDetail({ label }: StabilityLabelDetailProps) {
           </ListItem>
         ))}
       </List>
+
+      <Divider sx={{ mb: 4 }} />
+
+      <Typography variant="h6" component="h2" gutterBottom>
+        Harvor Service Standard expectations
+      </Typography>
+      {(() => {
+        const categories = serviceStandardExpectedThrough(label.id);
+        if (categories.length === 0) {
+          return (
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 5 }}>
+              Nothing yet — there's no interface to hold to the standard
+              until the service reaches Alpha. See the{" "}
+              <Box component={RouterLink} to="/reference/service-standard" sx={{ color: "inherit" }}>
+                Harvor Service Standard
+              </Box>{" "}
+              for what's expected at each later stage.
+            </Typography>
+          );
+        }
+        return (
+          <>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              {label.id === "ga"
+                ? "By GA, a service or feature is expected to meet the Harvor Service Standard in full:"
+                : `By ${label.label}, a service or feature is expected to meet the following (cumulative with earlier stages):`}
+            </Typography>
+            <Stack spacing={2} sx={{ mb: 2 }}>
+              {categories.map((category) => (
+                <Box key={category.id}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>
+                    {category.title}
+                  </Typography>
+                  <List disablePadding>
+                    {category.items.map((item) => (
+                      <ListItem key={item.text} disableGutters sx={{ py: 0.25, alignItems: "flex-start" }}>
+                        <ListItemIcon sx={{ minWidth: 32, mt: 0.5 }}>
+                          <CheckBoxOutlineBlankOutlinedIcon fontSize="small" color="disabled" />
+                        </ListItemIcon>
+                        <ListItemText primary={item.text} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+              ))}
+            </Stack>
+            <Typography variant="body2" sx={{ mb: 5 }}>
+              <Box component={RouterLink} to="/reference/service-standard" sx={{ color: "text.secondary" }}>
+                See the full Harvor Service Standard →
+              </Box>
+            </Typography>
+          </>
+        );
+      })()}
 
       <Divider sx={{ mb: 3 }} />
 

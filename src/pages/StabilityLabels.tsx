@@ -24,11 +24,19 @@ function StabilityLabels() {
       <Typography variant="h3" component="h1" gutterBottom>
         Stability labels
       </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 680, mb: 5 }}>
+      <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 680, mb: 2 }}>
         Every Harvor service, and every notable feature within a service,
         carries one of four stability labels: Not started, Alpha, Beta, or
         GA. A label is a declaration of quality and stability — how much the
         interface is still expected to move — not a support commitment.
+      </Typography>
+      <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 680, mb: 5 }}>
+        Each label also carries a growing set of expectations from the{" "}
+        <Box component={RouterLink} to="/reference/service-standard" sx={{ color: "text.secondary" }}>
+          Harvor Service Standard
+        </Box>{" "}
+        — see a label's page for exactly what's expected at that stage, and
+        the full standard for what's expected in full at GA.
       </Typography>
 
       <List disablePadding sx={{ mb: 6 }}>

@@ -31,7 +31,10 @@ export const navSections: NavSection[] = [
   },
   {
     label: "Reference",
-    items: [{ label: "API and events", path: "/reference/api" }],
+    items: [
+      { label: "API and events", path: "/reference/api" },
+      { label: "Service standard", path: "/reference/service-standard" },
+    ],
   },
   {
     label: "Stability Labels",

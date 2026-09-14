@@ -5,6 +5,7 @@ import Main from "./layouts/Main";
 import Home from "./pages/Home";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import ServicePage from "./pages/ServicePage";
+import ServiceStandard from "./pages/ServiceStandard";
 import StabilityLabelDetail from "./pages/StabilityLabelDetail";
 import StabilityLabels from "./pages/StabilityLabels";
 
@@ -49,6 +50,7 @@ function App() {
             />
           }
         />
+        <Route path="/reference/service-standard" element={<ServiceStandard />} />
         <Route path="/reference/stability-labels" element={<StabilityLabels />} />
         {stabilityLabels.map((label) => (
           <Route
