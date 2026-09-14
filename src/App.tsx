@@ -1,9 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { services } from "./data/services";
+import { stabilityLabels } from "./data/stabilityLabels";
 import Main from "./layouts/Main";
 import Home from "./pages/Home";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import ServicePage from "./pages/ServicePage";
+import StabilityLabelDetail from "./pages/StabilityLabelDetail";
+import StabilityLabels from "./pages/StabilityLabels";
 
 function App() {
   return (
@@ -46,6 +49,14 @@ function App() {
             />
           }
         />
+        <Route path="/reference/stability-labels" element={<StabilityLabels />} />
+        {stabilityLabels.map((label) => (
+          <Route
+            key={label.id}
+            path={`/reference/stability-labels/${label.id}`}
+            element={<StabilityLabelDetail label={label} />}
+          />
+        ))}
 
         {services.map((service) => (
           <Route

@@ -6,8 +6,11 @@ import {
   List,
   ListItem,
   ListItemText,
+  Stack,
   Typography,
 } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import StabilityBadge from "../components/StabilityBadge";
 import type { ServiceDoc } from "../data/services";
 
 interface ServicePageProps {
@@ -20,8 +23,20 @@ function ServicePage({ service }: ServicePageProps) {
       <Typography variant="overline" color="text.secondary">
         {service.subtitle}
       </Typography>
-      <Typography variant="h3" component="h1" gutterBottom>
-        {service.name}
+      <Stack direction="row" spacing={1.5} sx={{ mb: 1, alignItems: "center" }}>
+        <Typography variant="h3" component="h1">
+          {service.name}
+        </Typography>
+        <StabilityBadge label={service.stabilityLabel} size="medium" />
+      </Stack>
+      <Typography variant="body2" sx={{ mb: 3 }}>
+        <Box
+          component={RouterLink}
+          to={`/reference/stability-labels/${service.stabilityLabel}`}
+          sx={{ color: "text.secondary" }}
+        >
+          What does this label mean?
+        </Box>
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 640, mb: 4 }}>
         {service.description}

@@ -3,12 +3,15 @@ import {
   Drawer,
   List,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   ListSubheader,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
+import { stabilityLabelIcon } from "../components/stabilityIcons";
+import type { NavItem } from "../navigation";
 import { navSections } from "../navigation";
 import { DRAWER_WIDTH } from "./layoutConstants";
 
@@ -18,18 +21,25 @@ interface SideNavProps {
   searchQuery: string;
 }
 
+function filterItems(items: NavItem[], query: string): NavItem[] {
+  return items
+    .map((item) => {
+      const matches = item.label.toLowerCase().includes(query);
+      const children = item.children ? filterItems(item.children, query) : undefined;
+      if (matches) return item;
+      if (children && children.length > 0) return { ...item, children };
+      return null;
+    })
+    .filter((item): item is NavItem => item !== null);
+}
+
 function SideNav({ mobileOpen, onClose, searchQuery }: SideNavProps) {
   const location = useLocation();
   const query = searchQuery.trim().toLowerCase();
 
   const filteredSections = query
     ? navSections
-        .map((section) => ({
-          ...section,
-          items: section.items.filter((item) =>
-            item.label.toLowerCase().includes(query),
-          ),
-        }))
+        .map((section) => ({ ...section, items: filterItems(section.items, query) }))
         .filter((section) => section.items.length > 0)
     : navSections;
 
@@ -54,39 +64,98 @@ function SideNav({ mobileOpen, onClose, searchQuery }: SideNavProps) {
               {section.label}
             </ListSubheader>
             {section.items.map((item) => (
-              <ListItemButton
-                key={item.path}
-                component={NavLink}
-                to={item.path}
-                end={item.path === "/"}
-                selected={location.pathname === item.path}
-                onClick={onClose}
-                sx={{
-                  borderRadius: 1.5,
-                  mx: 0.5,
-                  "&.Mui-selected, &.Mui-selected:hover": {
-                    bgcolor: (theme) =>
-                      theme.palette.mode === "light"
-                        ? "rgba(53, 102, 245, 0.08)"
-                        : "rgba(110, 149, 255, 0.14)",
-                    color: "primary.main",
-                  },
-                }}
-              >
-                <ListItemText
-                  slotProps={{
-                    primary: {
-                      sx: {
-                        fontSize: 14,
-                        fontWeight:
-                          location.pathname === item.path ? 600 : 400,
-                      },
+              <Box key={item.path}>
+                <ListItemButton
+                  component={NavLink}
+                  to={item.path}
+                  end={item.path === "/"}
+                  selected={location.pathname === item.path}
+                  onClick={onClose}
+                  sx={{
+                    borderRadius: 1.5,
+                    mx: 0.5,
+                    "&.Mui-selected, &.Mui-selected:hover": {
+                      bgcolor: (theme) =>
+                        theme.palette.mode === "light"
+                          ? "rgba(53, 102, 245, 0.08)"
+                          : "rgba(110, 149, 255, 0.14)",
+                      color: "primary.main",
                     },
                   }}
                 >
-                  {item.label}
-                </ListItemText>
-              </ListItemButton>
+                  <ListItemText
+                    slotProps={{
+                      primary: {
+                        sx: {
+                          fontSize: 14,
+                          fontWeight:
+                            location.pathname === item.path ? 600 : 400,
+                        },
+                      },
+                    }}
+                  >
+                    {item.label}
+                  </ListItemText>
+                </ListItemButton>
+
+                {item.children && item.children.length > 0 && (
+                  <Box
+                    sx={{
+                      ml: 2.25,
+                      pl: 1.25,
+                      borderLeft: "1px solid",
+                      borderColor: "divider",
+                    }}
+                  >
+                    {item.children.map((child) => (
+                      <ListItemButton
+                        key={child.path}
+                        component={NavLink}
+                        to={child.path}
+                        selected={location.pathname === child.path}
+                        onClick={onClose}
+                        sx={{
+                          borderRadius: 1.5,
+                          mx: 0.5,
+                          py: 0.5,
+                          "&.Mui-selected, &.Mui-selected:hover": {
+                            bgcolor: (theme) =>
+                              theme.palette.mode === "light"
+                                ? "rgba(53, 102, 245, 0.08)"
+                                : "rgba(110, 149, 255, 0.14)",
+                            color: "primary.main",
+                          },
+                        }}
+                      >
+                        {child.iconId && (
+                          <ListItemIcon
+                            sx={{
+                              minWidth: 28,
+                              color: "inherit",
+                              "& svg": { fontSize: 18 },
+                            }}
+                          >
+                            {stabilityLabelIcon[child.iconId]}
+                          </ListItemIcon>
+                        )}
+                        <ListItemText
+                          slotProps={{
+                            primary: {
+                              sx: {
+                                fontSize: 13.5,
+                                fontWeight:
+                                  location.pathname === child.path ? 600 : 400,
+                              },
+                            },
+                          }}
+                        >
+                          {child.label}
+                        </ListItemText>
+                      </ListItemButton>
+                    ))}
+                  </Box>
+                )}
+              </Box>
             ))}
           </Box>
         ))}

@@ -6,9 +6,11 @@ import {
   List,
   ListItemButton,
   ListItemText,
+  Stack,
   Typography,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import StabilityBadge from "../components/StabilityBadge";
 import { services } from "../data/services";
 
 interface NextStep {
@@ -116,9 +118,15 @@ function Home() {
             sx={{ py: 1.25, px: 1.5, borderRadius: 1 }}
           >
             <ListItemText
-              primary={`${service.name} — ${service.subtitle}`}
+              primary={
+                <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                  <Box component="span" sx={{ fontWeight: 600 }}>
+                    {service.name} — {service.subtitle}
+                  </Box>
+                  <StabilityBadge label={service.stabilityLabel} />
+                </Stack>
+              }
               secondary={service.description}
-              slotProps={{ primary: { sx: { fontWeight: 600 } } }}
             />
           </ListItemButton>
         ))}
