@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Cache ESLint results
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: .eslintcache
           key: eslint-${{ runner.os }}-${{ hashFiles('package-lock.json', 'eslint.config.js', '.prettierrc', '.nvmrc') }}
@@ -44,7 +44,7 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
       - name: Cache TypeScript incremental build info
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: "*.tsbuildinfo"
           key: tsbuildinfo-${{ runner.os }}-${{ hashFiles('tsconfig*.json') }}-${{ github.sha }}
